@@ -22,12 +22,12 @@ body {
 .master-detail > .master {
     background: #EAEAEA;
     border: 1px solid #CCC;
-    flex: 1;
+    flex: 0 0 200px;
 }
 
 .master-detail > .detail {
     background: #f0f0f0;
-    flex: 2;
+    flex: 1;
 }
 
 .scroll {
@@ -44,10 +44,6 @@ body {
     margin: 5px;
     padding: 20px;
 }
-
-
-
-
 
 
 @media (spanning: single-fold-vertical) {
