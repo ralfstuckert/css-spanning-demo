@@ -10,21 +10,20 @@ body {
     width: 100%;
 }
 
-.master-detail > .master,
-.master-detail > .detail {
+.master, .detail {
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
     overflow-x: hidden;
 }
 
-.master-detail > .master {
+.master {
 /*    background: #EAEAEA; */
     border: 1px solid #CCC;
     flex: 0 0 200px;
 }
 
-.master-detail > .detail {
+.detail {
 /*    background: #f0f0f0;*/
     flex: 1;
 }
