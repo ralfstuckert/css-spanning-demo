@@ -19,13 +19,13 @@ body {
 }
 
 .master-detail > .master {
-    background: #EAEAEA;
+/*    background: #EAEAEA; */
     border: 1px solid #CCC;
     flex: 0 0 200px;
 }
 
 .master-detail > .detail {
-    background: #f0f0f0;
+/*    background: #f0f0f0;*/
     flex: 1;
 }
 
