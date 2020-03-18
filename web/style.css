@@ -75,6 +75,10 @@ body {
     .detail {
     }
 
+    .item {
+        flex-direction: row;
+    }
+
     .item__part:not(:last-child) {
         margin-bottom: 0;
     }
