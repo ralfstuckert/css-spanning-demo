@@ -18,13 +18,13 @@ body {
 }
 
 .master {
-/*    background: #EAEAEA; */
+    background: #EAEAEA;
     border: 1px solid #CCC;
     flex: 0 0 200px;
 }
 
 .detail {
-/*    background: #f0f0f0;*/
+    background: #f0f0f0;
     flex: 1;
 }
 
@@ -48,11 +48,9 @@ body {
     .master {
         flex: 0 0 env(fold-left);
         margin-right: env(fold-width);
-        background-color: steelblue;
     }
 
     .detail {
-        background-color: yellow;
     }
 
 }
@@ -65,11 +63,9 @@ body {
     .master {
         flex: 0 0 env(fold-top);
         margin-bottom: env(fold-height);
-        background-color: pink;
     }
 
     .detail {
-        background-color: seagreen;
     }
 
 }
