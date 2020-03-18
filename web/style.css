@@ -1,0 +1,84 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+.master-detail {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    flex: 1 1 auto;
+}
+
+.master-detail > .master,
+.master-detail > .detail {
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.master-detail > .master {
+    background: #EAEAEA;
+    border: 1px solid #CCC;
+    flex: 1;
+}
+
+.master-detail > .detail {
+    background: #f0f0f0;
+    flex: 2;
+}
+
+.scroll {
+    flex: 1 1 auto;
+    overflow: auto;
+    min-height: 0px;
+    height: 100%;
+    padding: 10px;
+}
+
+.item {
+    background: white;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 20px;
+}
+
+
+
+
+
+
+@media (spanning: single-fold-vertical) {
+    .master {
+        flex: 0 0 env(fold-left);
+        margin-right: env(fold-width);
+        background-color: steelblue;
+    }
+
+    .detail {
+        background-color: yellow;
+    }
+
+}
+
+@media (spanning: single-fold-horizontal) {
+    .wrapper {
+        flex-direction: column;
+    }
+
+    .master {
+        flex: 0 0 env(fold-top);
+        margin-bottom: env(fold-height);
+        background-color: pink;
+    }
+
+    .detail {
+        background-color: seagreen;
+    }
+
+}
+
+@media (spanning: none) {
+}
