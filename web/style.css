@@ -64,7 +64,7 @@ body {
 }
 
 @media (spanning: single-fold-horizontal) {
-    .wrapper {
+    .master-detail {
         flex-direction: column;
     }
 
