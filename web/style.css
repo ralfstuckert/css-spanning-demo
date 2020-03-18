@@ -49,6 +49,9 @@ body {
     margin-bottom: 5px;
 }
 
+.separator {
+    display: none;
+}
 
 
 @media (spanning: single-fold-vertical) {
@@ -82,8 +85,8 @@ body {
     .item__part:not(:last-child) {
         margin-bottom: 0;
     }
-    .item__part:not(:last-child):after {
-        content: " - ";
+    .separator {
+        display: block;
     }
 
 
