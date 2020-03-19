@@ -1,0 +1,62 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.blue {
+    background-color: blue;
+    height: 100px;
+    width: 100px;
+    position: absolute;
+    left: calc(50vw - 100px);
+    top: 0;
+}
+
+.yellow {
+    background-color: yellow;
+    height: 100px;
+    width: 50vw;
+    position: absolute;
+    left: 50vw;
+    top: 0;
+}
+
+.pink {
+    background-color: pink;
+    height: 100px;
+    width: 50vw;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.green {
+    background-color: green;
+    height: 100px;
+    width: 100px;
+    position: absolute;
+    left: 50vw;
+    bottom: 0;
+}
+
+
+@media (spanning: single-fold-vertical) {
+    .blue {
+        left: calc(env(fold-left) - 100px);
+    }
+
+    .yellow {
+        width: calc(100vw - env(fold-left) + env(fold-width));
+        left: calc(env(fold-left) + env(fold-width) );
+    }
+
+    .pink {
+        width: env(fold-left);
+    }
+
+    .green {
+        left: calc(env(fold-left) + env(fold-width));
+    }
+}
