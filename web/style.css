@@ -10,14 +10,14 @@ body {
     width: 100%;
 }
 
-.master, .detail {
+.master-container, .detail-container {
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
     overflow-x: hidden;
 }
 
-.master {
+.master-container {
     box-sizing: border-box;
     background: #EAEAEA;
     border: 1px solid #CCC;
@@ -35,6 +35,7 @@ body {
 
 .detail.loader-container {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100%;
@@ -72,7 +73,7 @@ div.active {
     padding: 10px;
 }
 
-.item {
+.master {
     display: flex;
     flex-direction: column;
     background: white;
@@ -81,7 +82,7 @@ div.active {
     padding: 20px;
 }
 
-.item__part:not(:last-child) {
+.master__part:not(:last-child) {
     margin-bottom: 5px;
 }
 
@@ -95,12 +96,12 @@ div.active {
 
 
 @media (spanning: single-fold-vertical) {
-    .master {
+    .master-container {
         flex: 0 0 env(fold-left);
         margin-right: env(fold-width);
     }
 
-    .detail {
+    .detail-container {
     }
 
 }
@@ -110,19 +111,19 @@ div.active {
         flex-direction: column;
     }
 
-    .master {
+    .master-container {
         flex: 0 0 env(fold-top);
         margin-bottom: env(fold-height);
     }
 
-    .detail {
+    .detail-container {
     }
 
-    .item {
+    .master {
         flex-direction: row;
     }
 
-    .item__part:not(:last-child) {
+    .master__part:not(:last-child) {
         margin-bottom: 0;
     }
     .separator {

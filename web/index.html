@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="master-detail">
-    <div class="master">
+    <div class="master-container">
         <div class="scroll">
         </div>
     </div>
@@ -41,25 +41,25 @@
         let detail = createDetail(paragraphs)
         detailContainer.appendChild(detail)
 
-        let masterContainer = document.querySelector('.master .scroll')
+        let masterContainer = document.querySelector('.master-container .scroll')
         let master = createMaster(name, title, preview, detail)
         masterContainer.appendChild(master)
         return master
     }
 
     function createMaster(name, title, preview, detail) {
-        let item = document.createElement("div")
-        item.classList.add("item")
-        item.appendChild(createItemPart('from', name))
-        item.appendChild(createSeparator())
-        item.appendChild(createItemPart('title', title))
-        item.appendChild(createSeparator())
-        item.appendChild(createItemPart('text', preview))
-        item.addEventListener("click", function () {
-            select(item, detail)
+        let master = document.createElement("div")
+        master.classList.add("master")
+        master.appendChild(createMasterPart('from', name))
+        master.appendChild(createSeparator())
+        master.appendChild(createMasterPart('title', title))
+        master.appendChild(createSeparator())
+        master.appendChild(createMasterPart('text', preview))
+        master.addEventListener("click", function () {
+            select(master, detail)
         })
 
-        return item
+        return master
     }
 
     function createSeparator() {
@@ -69,12 +69,12 @@
     }
 
 
-    function createItemPart(partClass, text) {
-        let item = document.createElement("div")
-        item.classList.add("item__part")
-        item.classList.add(partClass)
-        item.textContent = text
-        return item
+    function createMasterPart(partClass, text) {
+        let master = document.createElement("div")
+        master.classList.add("master__part")
+        master.classList.add(partClass)
+        master.textContent = text
+        return master
     }
 
     function createDetail(paragraphs) {
@@ -126,11 +126,11 @@
     }
 
     function markMasterSelected(target) {
-        var items = document.getElementsByClassName("item");
-        for (var i = 0; i < items.length; i++) {
-            items[i].classList.remove('active');
-            if (items[i] === target) {
-                items[i].classList.add('active');
+        var masters = document.getElementsByClassName("master");
+        for (var i = 0; i < masters.length; i++) {
+            masters[i].classList.remove('active');
+            if (masters[i] === target) {
+                masters[i].classList.add('active');
             }
         }
     }
