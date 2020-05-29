@@ -126,7 +126,17 @@ div.active {
     .master__part:not(:last-child) {
         margin-bottom: 0;
     }
+    .master__part.from {
+        flex-basis: 25%
+    }
+    .master__part.title {
+        flex-basis: 25%
+    }
+    .master__part.text {
+        flex-basis: 40%
+    }
     .separator {
+        flex-basis: 5%;
         display: block;
     }
 
