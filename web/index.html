@@ -28,27 +28,35 @@
     init()
 
     async function init() {
-        let namesAndTitles = getNamesAndTitles().slice(0, 20)
-        let masters = await Promise.all(namesAndTitles.map(nameAndTitle => createMail(...nameAndTitle)))
+        const count = getCount()
+        const namesAndTitles = getNamesAndTitles(count)
+        const masters = await Promise.all(namesAndTitles.map(nameAndTitle => createMail(...nameAndTitle)))
         masters[0].click()
     }
 
-    async function createMail(name, title) {
-        let paragraphs = await createParagraphs()
-        let preview = getPreviewText(paragraphs[0])
+    function getCount() {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const count = urlParams.get('count') || 20
+        return Math.max(count, 1)
+    }
 
-        let detailContainer = document.querySelector('.detail-container .scroll')
-        let detail = createDetail(paragraphs)
+    async function createMail(name, title) {
+        const paragraphs = await createParagraphs()
+        const preview = getPreviewText(paragraphs[0])
+
+        const detailContainer = document.querySelector('.detail-container .scroll')
+        const detail = createDetail(paragraphs)
         detailContainer.appendChild(detail)
 
-        let masterContainer = document.querySelector('.master-container .scroll')
-        let master = createMaster(name, title, preview, detail)
+        const masterContainer = document.querySelector('.master-container .scroll')
+        const master = createMaster(name, title, preview, detail)
         masterContainer.appendChild(master)
         return master
     }
 
     function createMaster(name, title, preview, detail) {
-        let master = document.createElement("div")
+        const master = document.createElement("div")
         master.classList.add("master")
         master.appendChild(createMasterPart('from', name))
         master.appendChild(createSeparator())
@@ -63,14 +71,14 @@
     }
 
     function createSeparator() {
-        let separator = document.createElement("div")
+        const separator = document.createElement("div")
         separator.classList.add("separator")
         return separator
     }
 
 
     function createMasterPart(partClass, text) {
-        let master = document.createElement("div")
+        const master = document.createElement("div")
         master.classList.add("master__part")
         master.classList.add(partClass)
         master.textContent = text
@@ -78,13 +86,14 @@
     }
 
     function createDetail(paragraphs) {
-        let detail = document.createElement("div")
+        const detail = document.createElement("div")
         detail.classList.add("detail")
-        for (var i = 0; i < paragraphs.length; i++) {
-            let p = document.createElement("p")
-            p.textContent = paragraphs[i]
-            detail.appendChild(p)
-        }
+        const nodes = paragraphs.map(paragraph => {
+                const p = document.createElement("p")
+                p.textContent = paragraph
+                return p
+            })
+        detail.append(...nodes)
         return detail
     }
 
@@ -93,7 +102,7 @@
     }
 
     async function createParagraphs() {
-        let paragraphs = getRandomInt(10)
+        const paragraphs = getRandomInt(10)
         return fetch(`https://cors-anywhere.herokuapp.com/https://loripsum.net/api/${paragraphs}/medium/plaintext`)
             .then(response => response.text())
             .then(text => text.split('\n\n'))
@@ -115,27 +124,36 @@
     }
 
     function selectDetail(detail) {
-        var details = document.getElementsByClassName("detail");
-        for (var i = 0; i < details.length; i++) {
-            if (details[i] === detail) {
-                details[i].style.display = 'block'
+        const details = document.getElementsByClassName("detail");
+        for (let current of details) {
+            if (current === detail) {
+                current.style.display = 'block'
             } else {
-                details[i].style.display = 'none'
+                current.style.display = 'none'
             }
         }
     }
 
     function markMasterSelected(target) {
-        var masters = document.getElementsByClassName("master");
-        for (var i = 0; i < masters.length; i++) {
-            masters[i].classList.remove('active');
-            if (masters[i] === target) {
-                masters[i].classList.add('active');
+        const masters = document.getElementsByClassName("master");
+        for (let current of masters) {
+            current.classList.remove('active');
+            if (current === target) {
+                current.classList.add('active');
             }
         }
     }
 
-    function getNamesAndTitles() {
+    function getNamesAndTitles(count) {
+        const result = Array(count)
+        const namesAndTitles = getNamesAndTitlesStock()
+        for (let i = 0; i < count; ++i) {
+            result[i] = namesAndTitles[i % namesAndTitles.length]
+        }
+        return result
+    }
+
+    function getNamesAndTitlesStock() {
         return [
             ["Oliver Gehrke", "His account has been disabled due to TOS violations"],
             ["Amanda Kohl", "They were extremely happy about what happened"],
@@ -178,8 +196,9 @@
             ["Mike Merkel", "I don't get it"],
             ["Albin Nussbaum", "Arrival at 6:00"]
         ]
-    }
 
+
+    }
 </script>
 
 </body>
