@@ -15,9 +15,14 @@
     </div>
     <div class="detail-container">
         <div class="scroll">
-            <div class="detail loader-container">
+            <div class="detail loader">
                 <div class="loader__title">Generating content...</div>
-                <div class="loader"></div>
+                <div class="loader__box">
+                    <div class="loader__progress">
+                        <div class="progress">0 %</div>
+                    </div>
+                    <div class="loader__content"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -30,9 +35,28 @@
     async function init() {
         const count = getCount()
         const namesAndTitles = getNamesAndTitles(count)
-        const masters = await Promise.all(namesAndTitles.map(nameAndTitle => createMail(...nameAndTitle)))
+        const increaseCounter = increaseCounterFunction(count)
+        const masterPromises = namesAndTitles.map(nameAndTitle => createMail(...nameAndTitle))
+            .map(async masterPromise => {
+                const master = await masterPromise
+                increaseCounter()
+                return master
+            })
+        const masters = await Promise.all(masterPromises)
         masters[0].click()
     }
+
+    function increaseCounterFunction(count) {
+        const progress = document.querySelector('.progress')
+        let current = 0;
+        let max = count;
+        return () => {
+            current++
+            const percent = Math.round(current / max * 100)
+            progress.textContent = `${percent} %`
+        }
+    }
+
 
     function getCount() {
         const queryString = window.location.search;
@@ -89,10 +113,10 @@
         const detail = document.createElement("div")
         detail.classList.add("detail")
         const nodes = paragraphs.map(paragraph => {
-                const p = document.createElement("p")
-                p.textContent = paragraph
-                return p
-            })
+            const p = document.createElement("p")
+            p.textContent = paragraph
+            return p
+        })
         detail.append(...nodes)
         return detail
     }
