@@ -33,10 +33,10 @@
     init()
 
     async function init() {
-        const count = getCount()
-        const namesAndTitles = getNamesAndTitles(count)
-        const increaseCounter = increaseCounterFunction(count)
-        const masterPromises = namesAndTitles.map(nameAndTitle => createMail(...nameAndTitle))
+        const mailList = await getMailList()
+        console.log(mailList)
+        const increaseCounter = increaseCounterFunction(mailList.length)
+        const masterPromises = mailList.map(mailFile => createMail(mailFile))
             .map(async masterPromise => {
                 const master = await masterPromise
                 increaseCounter()
@@ -58,15 +58,16 @@
     }
 
 
-    function getCount() {
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        const count = urlParams.get('count') || 20
-        return Math.max(count, 1)
+    async function getMailList() {
+        return fetch(`content/mail-descriptor.json`)
+            .then(response => response.json())
+            .then(json => json.mails)
     }
 
-    async function createMail(name, title) {
-        const paragraphs = await createParagraphs()
+    async function createMail(mailFile) {
+        const mail =  await fetch(`content/${mailFile}`).then(response => response.json())
+
+        const paragraphs = mail.content.split('\n\n')
         const preview = getPreviewText(paragraphs[0])
 
         const detailContainer = document.querySelector('.detail-container .scroll')
@@ -74,7 +75,7 @@
         detailContainer.appendChild(detail)
 
         const masterContainer = document.querySelector('.master-container .scroll')
-        const master = createMaster(name, title, preview, detail)
+        const master = createMaster(mail.name, mail.title, preview, detail)
         masterContainer.appendChild(master)
         return master
     }
