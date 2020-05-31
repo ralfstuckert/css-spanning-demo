@@ -34,7 +34,6 @@
 
     async function init() {
         const mailList = await getMailList()
-        console.log(mailList)
         const increaseCounter = increaseCounterFunction(mailList.length)
         const masterPromises = mailList.map(mailFile => createMail(mailFile))
             .map(async masterPromise => {
@@ -126,23 +125,6 @@
         return text.substring(0, 50) + "..."
     }
 
-    async function createParagraphs() {
-        const paragraphs = getRandomInt(10)
-        return fetch(`https://cors-anywhere.herokuapp.com/https://loripsum.net/api/${paragraphs}/medium/plaintext`)
-            .then(response => response.text())
-            .then(text => text.split('\n\n'))
-    }
-
-    async function createTitle() {
-        return fetch('https://cors-anywhere.herokuapp.com/https://loripsum.net/api/1/short/headers/plaintext')
-            .then(response => response.text())
-            .then(text => text.split(/[,.?!:;]/)[0])
-    }
-
-    function getRandomInt(max) {
-        return Math.ceil(Math.random() * Math.floor(max));
-    }
-
     function select(master, detail) {
         markMasterSelected(master)
         selectDetail(detail)
@@ -169,61 +151,6 @@
         }
     }
 
-    function getNamesAndTitles(count) {
-        const result = Array(count)
-        const namesAndTitles = getNamesAndTitlesStock()
-        for (let i = 0; i < count; ++i) {
-            result[i] = namesAndTitles[i % namesAndTitles.length]
-        }
-        return result
-    }
-
-    function getNamesAndTitlesStock() {
-        return [
-            ["Oliver Gehrke", "His account has been disabled due to TOS violations"],
-            ["Amanda Kohl", "They were extremely happy about what happened"],
-            ["Alma Redlich", "Thank you for repaying"],
-            ["Sandra Hector", "Clowns like to display humor"],
-            ["Barbara Braune", "Her favorite color is black"],
-            ["Marga Lindner", "Their beauty is unmatched"],
-            ["Else Schwender", "I am skillful because I had a great teacher"],
-            ["Ottilie Hopfer", "I will give power to them"],
-            ["Laura Staffel", "That was quite the public display wasn't it?"],
-            ["Lorenz Hennig", "The crowd was very noisy"],
-            ["Leoni Schönbeck", "That outcome is likely to happen"],
-            ["Elia Heider", "Your satisfaction is guaranteed"],
-            ["Augustin Koehne", "His attitude was very hostile"],
-            ["Anke Kapp", "I am unaffected by your verbal attacks"],
-            ["Sarah Wetter", "Please don't be rude"],
-            ["Siglinde Rösch", "It is mostly made up of mercury isn't it?"],
-            ["Natalie Bartels", "Norrin Radd has cosmic awareness"],
-            ["Noah Ehrenreich", "I want to live in peace and happiness"],
-            ["Elke Weider", "Her presentation was good enough"],
-            ["Anny Drossel", "We finally came to an agreement"],
-            ["Udo Rosengarten", "An alien invasion happened"],
-            ["Patrizia Heller", "They stated an opinion on how they felt"],
-            ["Heide Blecher", "Be very careful"],
-            ["Sina Hesse", "The cell phone is next to the laptop"],
-            ["Tabea Sondheim", "Her performance was inconsistent"],
-            ["Dagmar Rudel", "I was the winner of the chess game"],
-            ["Johannes Braunbeck", "They have a strong friendship"],
-            ["Konrad Böhm", "I have been busier these days"],
-            ["Heinrich Schulze", "A lot of water is flowing throughout the ship"],
-            ["Horst Staebler", "Please continue"],
-            ["Hinrich Dehnert", "Give me a call"],
-            ["Henny Schönfeld", "Assist them in their battle"],
-            ["Axel Gradl", "Do not hesitate"],
-            ["Judith Schottel", "I read a lot because I am a book addict"],
-            ["Dietrich Engels", "They acted very childish"],
-            ["Christa Rösch", "I used a q-tip to clean my ears"],
-            ["Sandro Wandesleben", "I gave strength to her"],
-            ["Lina Suhren", "What about today"],
-            ["Mike Merkel", "I don't get it"],
-            ["Albin Nussbaum", "Arrival at 6:00"]
-        ]
-
-
-    }
 </script>
 
 </body>
