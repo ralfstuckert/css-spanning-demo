@@ -5,5 +5,5 @@ utilizing a [polyfill](https://github.com/zouhir/spanning-css-polyfill).
 
 You can try it using an emulator https://foldables-emulator.netlify.app/?url=https://rst-css-spanning-demo.netlify.app
 
-Be aware that this is dump layout demo without any functions.
+Be aware that this is a dumb layout demo without any functions.
 
